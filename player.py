@@ -6,6 +6,8 @@ class player:
     def __init__(self, player_number, player_name):
         self.name = player_name
         self.number = player_number #either 1 or 2
+        self.starting = False  #whether the player is starting this turn
+        self.priority = False   #whether the player has to play or not 
         self.winner = 0     #when this variable is 1, the player wins
         #add - check pytorch initialisation
 
@@ -33,4 +35,5 @@ class player:
 
     def reset(self):
         self.winner = 0
+        self.priority = 0
         #add other important things to reset AFTER EACH GAME

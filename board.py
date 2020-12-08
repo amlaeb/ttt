@@ -1,9 +1,25 @@
+import numpy as np
+
 
 class board:
 
     def __init__(self):
         self.squares = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]    
 
+    def game_init(self, player_1, player_2):
+    #to run at the start of the first round of the session
+        coin = np.random.random()
+        if coin < 0.5:
+            player_1.starting = True
+        else:
+            player_2.starting = True
+
+    def round_init(self, player_1, player_2):
+    #to run at the beginning of every round
+        for p in (player_1, player_2):
+            if p.starting == True:
+                p.priority = True
+        self.winner = 0
 
     def update_square(self, player):
     #to run after each player has played
@@ -47,6 +63,18 @@ class board:
                 player_2.winner = 1
             elif self.squares[1][1] == 0:
                 pass
+        if player_1.winner == 1 or player_2.winner == 1:
+            player_1.priority = False 
+            player_2.priority = False 
+            player_1.starting = not player_1.starting
+            player_2.starting = not player_2.starting
+        else:
+            player_1.priority = not player_1.priority
+            player_2.priority = not player_2.priority
+        if player_1.winner == 1:
+            self.winner = player_1.number
+        elif player_2.winner == 1:
+            self.winner = player_2.number
 
     def announce_winner(self, player_1, player_2):
         if player_1.winner == 1:
