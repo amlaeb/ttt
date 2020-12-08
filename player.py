@@ -31,3 +31,6 @@ class player:
         if cell_id == 8:
             self.move =  (2, 2)
 
+    def reset(self):
+        self.winner = 0
+        #add other important things to reset AFTER EACH GAME

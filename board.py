@@ -54,7 +54,8 @@ class board:
         elif player_2.winner == 1:
             print("{} has won the game!".format(player_2.name))
 
-    def reset(self):
+    def reset(self, player_1, player_2):
         self.squares = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-
+        player_1.reset()
+        player_2.reset()
 
