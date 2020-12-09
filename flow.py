@@ -1,37 +1,27 @@
 import board
 import player
 
+#initialise the board and the players
 b = board.board()
-t = player.player(1, 'Tommaso')
-l = player.player(2, 'Lea')
+learner = player.player(1, 'Learner')
+random = player.player(2, 'Random')
 
-print('\nPlayer creation')
-print(t.name, t.number, t.starting, t.priority)
-print(l.name, l.number, l.starting, l.priority)
+#initialise the game
+b.game_init(learner, random)
 
-b.game_init(t, l)
+#initialise the round and set the player which currently has priority
+b.round_init(learner, random)
+player_with_priority = learner if learner.priority == True else random
 
-print('\nGame init')
-print(t.name, t.number, t.starting, t.priority)
-print(l.name, l.number, l.starting, l.priority)
-
-b.round_init(t,l)
-player_with_priority = t if t.priority == True else l
-
-print('\nRound init')
-print(t.name, t.number, t.starting, t.priority)
-print(l.name, l.number, l.starting, l.priority)
-print('Player with priority is {}'.format(player_with_priority.name))
-
+#play the round until a winner is found
 while b.winner == 0:
-    for i in range(9):
-        player_with_priority.make_move(i)
-        b.update_square(player_with_priority)
-        b.check_winner(t, l)
-        player_with_priority = t if t.priority == True else l
+    ##decided_move = player_with_priority.decide_move() #using ANN
+    player_with_priority.make_move(decided_move)
+    b.update_square(player_with_priority)
+    b.check_winner(random, learner)
+    player_with_priority = learner if learner.priority == True else random
 
-b.announce_winner(t, l)
-print(b.squares)
-b.reset(t, l)
-
+#once a winner is found, announce it and reset the board
+b.announce_winner(learner, random)
+b.reset(learner, random)
 

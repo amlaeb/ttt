@@ -1,0 +1,6 @@
+todo file for TTT
+
+
+- read and understand exactly the type of output and supervised learnine required for my case (I suspect it is supervised SARSA learning with some degree of backwards learning called eligibility trace)
+
+- implement it: more practically, I need to finish defining the class in learn.py and then write the appropriate methods in player.py

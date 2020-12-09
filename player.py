@@ -1,15 +1,24 @@
+#import learn #to build
 
 
 
 class player:
 
-    def __init__(self, player_number, player_name):
+    def __init__(self, player_number, player_name, player_behaviour):
         self.name = player_name
         self.number = player_number #either 1 or 2
         self.starting = False  #whether the player is starting this turn
         self.priority = False   #whether the player has to play or not 
         self.winner = 0     #when this variable is 1, the player wins
+        self.behaviour = player_behaviour #either 'random' or 'learner'
         #add - check pytorch initialisation
+        #self.net = learn.net(*args)
+        #self.optimisation = .....
+        #self.loss
+        #self.epsilon #three learning parameters
+        #self.alpha
+        #self.gamma
+        
 
     def make_move(self, cell_id):
     #better to use a cell ID, it will communicate better with the output

@@ -13,13 +13,13 @@ class board:
             player_1.starting = True
         else:
             player_2.starting = True
+        self.winner = 0
 
     def round_init(self, player_1, player_2):
     #to run at the beginning of every round
         for p in (player_1, player_2):
             if p.starting == True:
                 p.priority = True
-        self.winner = 0
 
     def update_square(self, player):
     #to run after each player has played
@@ -86,4 +86,4 @@ class board:
         self.squares = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
         player_1.reset()
         player_2.reset()
-
+        self.winner = 0
