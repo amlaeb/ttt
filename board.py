@@ -87,3 +87,13 @@ class board:
         player_1.reset()
         player_2.reset()
         self.winner = 0
+
+
+    def get_playable_moves(self):
+        playable_moves = [] 
+        for i in (0, 1, 2):
+            for j in (0, 1, 2):
+                if self.squares[i][j] == 0:
+                    playable_moves.append(3 * j + i + 1)
+        return playable_moves
+
