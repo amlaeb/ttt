@@ -5,6 +5,8 @@ class board:
 
     def __init__(self):
         self.squares = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]    
+        self.board_state = []
+        self.list_of_states = []
 
     def game_init(self, player_1, player_2):
     #to run at the start of the first round of the session
@@ -24,7 +26,8 @@ class board:
     def update_square(self, player):
     #to run after each player has played
         row, column = player.move
-        self.squares[row][column] = player.number
+        self.squares[row][column] = player.number   
+        self.write_board_state()
 
     def check_winner(self, player_1, player_2):    
     #to run after updating the square 
@@ -87,13 +90,21 @@ class board:
         player_1.reset()
         player_2.reset()
         self.winner = 0
-
+        self.list_of_states = []
 
     def get_playable_moves(self):
         playable_moves = [] 
-        for i in (0, 1, 2):
-            for j in (0, 1, 2):
+        for j in (0, 1, 2):
+            for i in (0, 1, 2):
                 if self.squares[i][j] == 0:
-                    playable_moves.append(3 * j + i + 1)
+                    playable_moves.append(3 * j + i)
         return playable_moves
+
+
+    def write_board_state(self):
+        for j in (0, 1, 2):
+            for i in (0, 1, 2):
+                self.board_state.append(self.squares[i][j])
+        self.list_of_states.append(self.board_state)
+        return self.board_state
 

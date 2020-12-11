@@ -23,11 +23,13 @@ class player:
         self.winner = 0     #when this variable is 1, the player wins
         self.behaviour = player_behaviour #default behaviour, either 'random' or 'learner'
         self.n_features = 10
+        self.list_of_moves = []
+        self.reward = 0
 
         self.net = learn.net(self.n_features)
         self.lr = 0.1   #the optimiser learning rate
         self.momentum = 0.9 #the optimiser momentum
-        self.loss = nn.MSELoss(reduction = 'mean')
+        self.loss_fn = nn.MSELoss(reduction = 'mean')
         self.optimiser = optim.SGD(self.net.parameters(), lr = self.lr, momentum = self.momentum)
         self.epsilon = 0.9      #epsilon-greedy parameter
         self.alpha = 0.05       #epsilon-greedy decay rate
@@ -38,6 +40,7 @@ class player:
     def reset(self):
         self.winner = 0
         self.priority = 0
+        self.list_of_moves = []
         #add other important things to reset AFTER EACH GAME
 
 
@@ -73,8 +76,31 @@ class player:
 
 
     def make_move(self):
-        j = math.floor((self.play_id- 1) / 3)
-        i = self.play_id - 3 * j - 1
+        j = math.floor((self.play_id) / 3)
+        i = self.play_id - 3 * j 
         self.move = (i, j)
+        self.list_of_moves.append(self.play_id) #for the backtrack learn
 
+    def create_state_action_pair(self, board):
+        for state in board.list_of_states: 
+
+
+
+    def training_step(self, board):
+        discounted_reward = self.reward
+
+                features = self.create_features_vector(state, action)
+                Q_value = self.net(features)
+                loss = self.loss_fn(Q_value, discounted reward)
+                self.optimiser.zero_grad()
+                self.optimiser.step()
+
+
+
+        
+    def create_features_vector(self, state_array, action):
+        for state in state_array:
+            features.append(state)
+        features.append(action)
+        return features
 
